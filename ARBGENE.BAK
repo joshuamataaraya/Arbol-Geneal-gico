@@ -31,15 +31,15 @@ predicates
 	
 	hijo(persona,persona)
 	hija(persona,persona)
-	hijP(persona,persona)
+	hij#(persona,persona)
 clauses
 	padre(Y,X):- pom(Y,X),nac(Y,hombre,_,_,_).
 	madre(Y,X):- pom(Y,X),nac(Y,mujer,_,_,_).
 	padreNeutro(Y,X):- pom(Y,X),nac(Y,neutro,_,_,_).
 	
-	hijo(X,Y):- pom(Y,X),nac(X,hombre,_,_,_).
-	hija(X,Y):- pom(Y,X),nac(X,mujer,_,_,_).
-	hijP(X,Y):- pom(Y,X),nac(X,neutro,_,_,_).	
+	hijo(X,Y):- pom(Y,X),nac(Y,hombre,_,_,_).
+	hija(X,Y):- pom(Y,X),nac(Y,mujer,_,_,_).
+	hij#(X,Y):- pom(Y,X),nac(Y,neutro,_,_,_).	
 	
 	
 	pom(jonathan,joshua).
