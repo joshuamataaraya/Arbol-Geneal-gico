@@ -50,8 +50,126 @@ predicates
 	hermano(persona,persona)
 	hermana(persona,persona)
 	hermanoN(persona,persona)
+	
+	mayor (persona,persona)
+	
+	hermanoMayor(persona,persona)
+	hermanaMayor(persona,persona)
+	hermanoNMayor(persona,persona)
+	
+	hermanoMenor(persona,persona)
+	hermanaMenor(persona,persona)
+	hermanoNMenor(persona,persona)
+	
+	tio(persona,persona)
+	tia(persona,persona)
+	tioN(persona,persona) 
+	
+	tioPaterno(persona,persona)
+	tiaPaterno(persona,persona)
+	tioNPaterno(persona,persona) 
+	
+	tioMaterno(persona,persona)
+	tiaMaterno(persona,persona)
+	tioNMaterno(persona,persona) 
+	
 clauses
-	hermano(X,Y):-pom(Z,X),
+	tioMaterno(X,Y):-
+		madre(Z,Y),
+		hermano(X,Z).
+	tiaMaterno(X,Y):-
+		madre(Z,Y),
+		hermana(X,Z).
+	tioNMaterno(X,Y):-
+		madre(Z,Y),
+		hermanoN(X,Z).
+	
+	tioPaterno(X,Y):-
+		padre(Z,Y),
+		hermano(X,Z).
+	tiaPaterno(X,Y):-
+		padre(Z,Y),
+		hermana(X,Z).
+	tioNPaterno(X,Y):-
+		padre(Z,Y),
+		hermanoN(X,Z).
+	
+	tio(X,Y):-
+		pom(Z,Y),
+		hermano(X,Z).
+	tia(X,Y):-
+		pom(Z,Y),
+		hermana(X,Z).
+	tioN(X,Y):-
+		pom(Z,Y),
+		hermanoN(X,Z).
+		
+	hermanoMenor(X,Y):-
+		pom(Z,X),
+		pom(W,X),
+		pom(Z,Y),
+		pom(W,Y),
+		X<>Y,
+		par(Z,W,_,_,_),
+		nac(X,S,_,_,_),
+		M=mujer,S<>M,
+		mayor(Y,X).
+	hermanaMenor(X,Y):-
+		pom(Z,X),
+		pom(W,X),
+		pom(Z,Y),
+		pom(W,Y),
+		par(Z,W,_,_,_),
+		X<>Y,
+		nac(X,S,_,_,_),
+		M=hombre,S<>M,
+		mayor(Y,X).
+	hermanoNMenor(X,Y):-
+		pom(Z,X),
+		pom(W,X),
+		pom(Z,Y),
+		pom(W,Y),
+		par(Z,W,_,_,_),
+		X<>Y,
+		mayor(Y,X).
+	hermanoMayor(X,Y):-
+		pom(Z,X),
+		pom(W,X),
+		pom(Z,Y),
+		pom(W,Y),
+		X<>Y,
+		par(Z,W,_,_,_),
+		nac(X,S,_,_,_),
+		M=mujer,S<>M,
+		mayor(X,Y).
+	hermanaMayor(X,Y):-
+		pom(Z,X),
+		pom(W,X),
+		pom(Z,Y),
+		pom(W,Y),
+		par(Z,W,_,_,_),
+		X<>Y,
+		nac(X,S,_,_,_),
+		M=hombre,S<>M,
+		mayor(X,Y).
+	hermanoNMayor(X,Y):-
+		pom(Z,X),
+		pom(W,X),
+		pom(Z,Y),
+		pom(W,Y),
+		par(Z,W,_,_,_),
+		X<>Y,
+		mayor(X,Y).
+	
+	mayor(X,Y):- 
+		nac(X,_,D,M,A),
+		nac(Y,_,DD,MM,AA),
+		Edadx=(A*365)+(M*30.41)+D,
+		Edady=(AA*365)+(MM*30.41)+DD,
+		Edadx < Edady.
+	
+	hermano(X,Y):-
+		pom(Z,X),
 		pom(W,X),
 		pom(Z,Y),
 		pom(W,Y),
@@ -59,7 +177,8 @@ clauses
 		par(Z,W,_,_,_),
 		nac(X,S,_,_,_),
 		M=mujer,S<>M.
-	hermana(X,Y):-pom(Z,X),
+	hermana(X,Y):-
+		pom(Z,X),
 		pom(W,X),
 		pom(Z,Y),
 		pom(W,Y),
@@ -67,12 +186,14 @@ clauses
 		X<>Y,
 		nac(X,S,_,_,_),
 		M=hombre,S<>M.
-	hermanoN(X,Y):-pom(Z,X),
+	hermanoN(X,Y):-
+		pom(Z,X),
 		pom(W,X),
 		pom(Z,Y),
 		pom(W,Y),
 		par(Z,W,_,_,_),
-		X<>Y.
+		X<>Y.	
+	
 			
 	nieto(Y,X):- 
 		pom(X,Z),
@@ -173,8 +294,13 @@ clauses
 	pom(noel,ruth).
 	pom(mary,ruth).
 	
+	pom(will,cecile).
+	pom(will,veyda).
+	pom(naylene,cecile).
+	pom(naylene,veyda).
+	
 	par(jonathan,francinie,6,12,1996).
-	par(will,nayline,1,1,2007).
+	par(will,naylene,4,7,2006).
 	par(wilbert,ligia,1,1,1965).
 	par(gladis,antonio,1,1,1932).
 	par(noel,mary,1,1,1970).
@@ -197,3 +323,6 @@ clauses
 	nac(ligia,mujer,13,3,1951).
 	nac(noel,hombre,17,3,1950).
 	nac(ania,mujer,6,7,1981).
+	nac(naylene,mujer,1,30,1984).
+	nac(cecile,mujer,8,7,2015).
+	nac(veyda,mujer,23,2,2013).
