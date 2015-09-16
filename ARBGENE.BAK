@@ -43,17 +43,24 @@ predicates
 	abuelaMaterno(persona,persona)
 	abueloNMaterno(persona,persona)
 	
-	
-	
+	nieto(persona,persona)
+	nieta(persona,persona)
+	nietoN(persona,persona)
 	
 clauses
-	padre(Y,X):- pom(Y,X), nac(Y,S,_,_,_),M=mujer,S<>M.
-	madre(Y,X):- pom(Y,X),nac(Y,S,_,_,_),H=hombre,S<>H.
-	padreN(Y,X):- pom(Y,X).
-	
-	hijo(X,Y):- pom(Y,X), nac(X,S,_,_,_),M=mujer,S<>M.
-	hija(X,Y):- pom(Y,X),nac(X,S,_,_,_),H=hombre,S<>H.
-	hijoN(X,Y):- pom(Y,X).
+	nieto(Y,X):- 
+		pom(X,Z),
+		pom(Z,Y),
+		nac(Y,S,_,_,_),
+		M=mujer,S<>M.
+	nieta(Y,X):-
+		pom(X,Z),
+		pom(Z,Y),
+		nac(Y,S,_,_,_),
+		M=hombre,S<>M.
+	nietoN(Y,X):-
+		pom(X,Z),
+		pom(Z,Y).
 	
 	abuelo(X,Y):- 
 		pom(X,Z),
@@ -92,6 +99,21 @@ clauses
 		pom(X,Z),
 		madre(Z,Y).
 	
+	hijo(X,Y):- pom(Y,X), nac(X,S,_,_,_),M=mujer,S<>M.
+	hija(X,Y):- pom(Y,X),nac(X,S,_,_,_),H=hombre,S<>H.
+	hijoN(X,Y):- pom(Y,X).
+	
+	padre(Y,X):- pom(Y,X), nac(Y,S,_,_,_),M=mujer,S<>M.
+	madre(Y,X):- pom(Y,X),nac(Y,S,_,_,_),H=hombre,S<>H.
+	padreN(Y,X):- pom(Y,X).
+	
+	
+	
+	
+/*-------------------------------------------
+	BASE DE DATOS
+  -----------------------------------------*/
+	
 	pom(jonathan,joshua).
 	pom(francinie,joshua).
 	pom(jonathan,alison).
@@ -120,7 +142,6 @@ clauses
 	
 	pom(antonio,noel).
 	pom(gladis,noel).
-	
 	pom(noel,noelia).
 	pom(mary,noelia).
 	pom(noel,ruth).
