@@ -47,7 +47,33 @@ predicates
 	nieta(persona,persona)
 	nietoN(persona,persona)
 	
+	hermano(persona,persona)
+	hermana(persona,persona)
+	hermanoN(persona,persona)
 clauses
+	hermano(X,Y):-pom(Z,X),
+		pom(W,X),
+		pom(Z,Y),
+		pom(W,Y),
+		X<>Y,
+		par(Z,W,_,_,_),
+		nac(X,S,_,_,_),
+		M=mujer,S<>M.
+	hermana(X,Y):-pom(Z,X),
+		pom(W,X),
+		pom(Z,Y),
+		pom(W,Y),
+		par(Z,W,_,_,_),
+		X<>Y,
+		nac(X,S,_,_,_),
+		M=hombre,S<>M.
+	hermanoN(X,Y):-pom(Z,X),
+		pom(W,X),
+		pom(Z,Y),
+		pom(W,Y),
+		par(Z,W,_,_,_),
+		X<>Y.
+			
 	nieto(Y,X):- 
 		pom(X,Z),
 		pom(Z,Y),
@@ -139,9 +165,9 @@ clauses
 	
 	pom(antonio,wilbert).
 	pom(gladis,wilbert).
-	
 	pom(antonio,noel).
 	pom(gladis,noel).
+	
 	pom(noel,noelia).
 	pom(mary,noelia).
 	pom(noel,ruth).
@@ -150,7 +176,7 @@ clauses
 	par(jonathan,francinie,6,12,1996).
 	par(will,nayline,1,1,2007).
 	par(wilbert,ligia,1,1,1965).
-	par(gladys,antonio,1,1,1932).
+	par(gladis,antonio,1,1,1932).
 	par(noel,mary,1,1,1970).
 	par(eduardo,edith,1,1,1965).
 	par(jairo,ania,21,1,2006).
@@ -162,9 +188,9 @@ clauses
 	nac(junior,hombre,16,11,1972).
 	nac(randall,hombre,9,11,1968).
 	nac(jairo,hombre,25,12,1979).
-	nac(kattia,mujer,1,1,1965).
-	nac(hasel,mujer,1,1,1972).
-	nac(will,hombre,28,8,1975).
+	nac(kattia,mujer,2,7,1968).
+	nac(hasell,mujer,26,1,1976).
+	nac(will,hombre,23,8,1977).
 	nac(wilbert,hombre,23,3,1952).
 	nac(eduardo,hombre,1,1,1948).
 	nac(edith,mujer,1,1,1948).
